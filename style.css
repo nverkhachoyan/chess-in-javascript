@@ -17,6 +17,9 @@ body {
     display: grid;
     grid-template-columns: repeat(8, 50px);
     cursor: grab;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
     /* grid-gap: 1px; */
 }
 
@@ -25,8 +28,6 @@ body {
     justify-content: center;
     align-items: center;
     background-color: rgb(222, 203, 112);
- 
-
     width: 50;
     height: 50;
     border: 0.5px solid #000000;
