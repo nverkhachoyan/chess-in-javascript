@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full viewport height */
+}
+
+#container {
+    min-width: 400px;
+    min-width: 400px;
+    display: grid;
+    grid-template-columns: repeat(8, 50px);
+    cursor: grab;
+    /* grid-gap: 1px; */
+}
+
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(222, 203, 112);
+ 
+
+    width: 50;
+    height: 50;
+    border: 0.5px solid #000000;
+}
