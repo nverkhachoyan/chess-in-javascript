@@ -45,7 +45,6 @@ export class ChessPiece {
 export class Pawn extends ChessPiece {
     constructor(color, position, board, _) {
         super(color, position, board, 'pawn');
-
         this.calculatePossibleMoves = this.calculatePossibleMoves.bind(this);
     }
 
@@ -80,7 +79,18 @@ export class Rook extends ChessPiece {
 export class Knight extends ChessPiece {
     constructor(color, position, board, type) {
         super(color, position, board, 'knight');
-        this.initializeImage();
+        this.calculatePossibleMoves = this.calculatePossibleMoves.bind(this);
+    }
+
+    calculatePossibleMoves() {
+        const posX = this.position.x;
+        const posY = this.position.y;
+        const possibleMovesArray = [
+            { x: posX - 2, y: posY + 1 },
+            { x: posX - 2, y: posY - 1 },
+        ];
+
+        return possibleMovesArray;
     }
 
     render() {

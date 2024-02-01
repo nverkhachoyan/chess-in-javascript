@@ -21,6 +21,13 @@ body {
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
     /* grid-gap: 1px; */
+
+    border: 10px solid #89560d;
+    border-radius: 3px;
+
+    /* box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2); */
+    box-shadow: 12px 12px 2px 1px rgba(176, 176, 9, 0.2);
+
 }
 
 .cell {
@@ -30,5 +37,21 @@ body {
     background-color: rgb(222, 203, 112);
     width: 50;
     height: 50;
-    border: 0.5px solid #000000;
+    /* border: 0.5px solid #000000; */
+    transition:  0.2s;  
+    opacity: 1;  
+}
+
+.white-cell {
+    background-color: rgb(222, 203, 112);
+}
+
+.black-cell {
+    background-color: rgb(49, 48, 43);
+}
+
+.highlight-cell {
+    opacity: 0.5;
+    /* filter: saturate(50%); */
+     
 }

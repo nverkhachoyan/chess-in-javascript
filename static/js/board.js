@@ -15,10 +15,22 @@ class cells {
 
 
     createBoard() {
+        let switchColor = false;
+
         for (let i = 0; i < this.gridSize; i++) {
             this.cells[i] = [];
             for (let j = 0; j < this.gridSize; j++) {
-                this.cells[i][j] = new Cell(i, j);
+
+                console.log(switchColor);
+                if (switchColor) {
+                    this.cells[i][j] = new Cell(i, j, "black");
+                    switchColor = false;
+
+                } else {
+                    this.cells[i][j] = new Cell(i, j, "white");
+                    switchColor = true;
+                }
+
                 if (i === 6) {
                     this.cells[i][j].piece = new Pawn("white", { x: i, y: j }, this);
                 } else if (i === 7 && (j === 0 || j === 7)) {
@@ -34,6 +46,8 @@ class cells {
                 }
 
             }
+            switchColor = !switchColor;
+
         }
     }
 
@@ -52,14 +66,16 @@ class cells {
     highlightCells(givenCells) {
         givenCells.forEach(({ x, y }) => {
             const cell = this.cells[x][y];
-            cell.element.style.backgroundColor = "rgb(206, 189, 105)";
+            // cell.element.style.backgroundColor = "rgb(206, 189, 105)";
+            cell.element.classList.add("highlight-cell");
         })
     }
 
     unhighlightCells(givenCells) {
         givenCells.forEach(({ x, y }) => {
             const cell = this.cells[x][y];
-            cell.element.style.backgroundColor = "rgb(222, 203, 112)";
+            cell.element.classList.remove("highlight-cell");
+
         })
     }
 
