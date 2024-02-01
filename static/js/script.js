@@ -1,8 +1,10 @@
-import { board, createBoard, drawBoard } from "./board.js"
+import Board from "./board.js"
+
+export const board = new Board();
 
 function run() {
-    createBoard();
-    drawBoard();
+    board.createBoard();
+    board.drawBoard();
 }
 
 run();

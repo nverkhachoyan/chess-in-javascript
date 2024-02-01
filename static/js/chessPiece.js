@@ -1,10 +1,19 @@
-import { board } from "./board.js";
-
 export class ChessPiece {
-    constructor(color, position) {
+    constructor(color, position, board, type) {
         this.color = color;
         this.position = position;
+        this.type = type;
+        this.board = board;
         this.isFirstMove = false;
+
+    }
+
+    initializeImage() {
+        this.image = new Image();
+        this.image.style.width = "40px";
+        this.image.draggable = false;
+        // Using the type and color to set the image source
+        this.image.src = `static/img/pieces/${this.type.toLowerCase()}-${this.color}.svg`;
     }
 
     move(dest) {
@@ -14,42 +23,37 @@ export class ChessPiece {
 }
 
 export class Pawn extends ChessPiece {
-    constructor(color, position) {
-        super(color, position);
-        this.image = new Image();
-        this.image.style.width = "40px";
-        this.image.draggable = false;
-        this.image.src = "static/img/pieces/pawn-" + color + ".svg";
+    constructor(color, position, board, type) {
+        super(color, position, board, 'pawn');
+        this.initializeImage();
+
+        this.calculatePossibleMoves = this.calculatePossibleMoves.bind(this);
 
         // Event listeners
-        this.showPossibleMoves = this.showPossibleMoves.bind(this);
-        this.image.addEventListener("mouseover", this.showPossibleMoves);
-        this.hidePossibleMoves = this.hidePossibleMoves.bind(this);
-        this.image.addEventListener("mouseout", this.hidePossibleMoves);
+        this.image.addEventListener("mouseover", this.showPossibleMoves.bind(this));
+        this.image.addEventListener("mouseout", this.hidePossibleMoves.bind(this));
     }
 
     showPossibleMoves() {
-        let posX = this.position.x;
-        let posY = this.position.y;
-        let possibleMoveCount = 3;
-
-        if (!this.isFirstMove) {
-            possibleMoveCount = 2;
-        }
-
-        for (let i = 0; i < 3; i++) {
-            board[posX - i][posY].element.style.backgroundColor = "rgb(206, 189, 105)";
-        }
+        const possibleMoves = this.calculatePossibleMoves();
+        this.board.highlightCells(possibleMoves);
     }
 
     hidePossibleMoves() {
-        let posX = this.position.x;
-        let posY = this.position.y;
+        const possibleMoves = this.calculatePossibleMoves();
+        this.board.unhighlightCells(possibleMoves);
+    }
 
-        for (let i = 0; i < 3; i++) {
-            board[posX - i][posY].element.style.backgroundColor = "rgb(222, 203, 112)";
-        }
+    calculatePossibleMoves() {
+        const posX = this.position.x;
+        const posY = this.position.y;
 
+        const possibleMovesArray = [
+            { x: posX - 1, y: posY },
+            { x: posX - 2, y: posY },
+        ];
+
+        return possibleMovesArray;
     }
 
     render() {
@@ -58,12 +62,9 @@ export class Pawn extends ChessPiece {
 }
 
 export class Rook extends ChessPiece {
-    constructor(color, position) {
-        super(color, position);
-        this.image = new Image();
-        this.image.style.width = 40;
-        this.image.draggable = false;
-        this.image.src = "static/img/pieces/rook-" + color + ".svg";
+    constructor(color, position, board, type) {
+        super(color, position, board, 'rook');
+        this.initializeImage();
     }
 
     render() {
@@ -72,12 +73,9 @@ export class Rook extends ChessPiece {
 }
 
 export class Knight extends ChessPiece {
-    constructor(color, position) {
-        super(color, position);
-        this.image = new Image();
-        this.image.style.width = 40;
-        this.image.draggable = false;
-        this.image.src = "static/img/pieces/knight-" + color + ".svg";
+    constructor(color, position, board, type) {
+        super(color, position, board, 'knight');
+        this.initializeImage();
     }
 
     render() {
@@ -86,12 +84,9 @@ export class Knight extends ChessPiece {
 }
 
 export class Bishop extends ChessPiece {
-    constructor(color, position) {
-        super(color, position);
-        this.image = new Image();
-        this.image.style.width = 40;
-        this.image.draggable = false;
-        this.image.src = "static/img/pieces/bishop-" + color + ".svg";
+    constructor(color, position, board, type) {
+        super(color, position, board, 'bishop');
+        this.initializeImage();
     }
 
     render() {
@@ -100,12 +95,9 @@ export class Bishop extends ChessPiece {
 }
 
 export class Queen extends ChessPiece {
-    constructor(color, position) {
-        super(color, position);
-        this.image = new Image();
-        this.image.style.width = 40;
-        this.image.draggable = false;
-        this.image.src = "static/img/pieces/queen-" + color + ".svg";
+    constructor(color, position, board, type) {
+        super(color, position, board, 'queen');
+        this.initializeImage();
     }
 
     render() {
@@ -114,12 +106,9 @@ export class Queen extends ChessPiece {
 }
 
 export class King extends ChessPiece {
-    constructor(color, position) {
-        super(color, position);
-        this.image = new Image();
-        this.image.style.width = 40;
-        this.image.draggable = false;
-        this.image.src = "static/img/pieces/king-" + color + ".svg";
+    constructor(color, position, board, type) {
+        super(color, position, board, 'king');
+        this.initializeImage();
     }
 
     render() {
