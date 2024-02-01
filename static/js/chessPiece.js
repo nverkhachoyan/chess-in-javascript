@@ -4,34 +4,22 @@ export class ChessPiece {
         this.position = position;
         this.type = type;
         this.board = board;
-        this.isFirstMove = false;
+        this.isFirstMove = true;
+        this.initializeImage();
 
+        // Event listeners for showing/hiding possible moves by
+        // Highlighting the corresponding cells
+        this.image.addEventListener("mouseover", this.showPossibleMoves.bind(this));
+        this.image.addEventListener("mouseout", this.hidePossibleMoves.bind(this));
     }
 
     initializeImage() {
         this.image = new Image();
         this.image.style.width = "40px";
         this.image.draggable = false;
+
         // Using the type and color to set the image source
         this.image.src = `static/img/pieces/${this.type.toLowerCase()}-${this.color}.svg`;
-    }
-
-    move(dest) {
-        throw new Error("This method is abstract and should be overridden");
-    }
-
-}
-
-export class Pawn extends ChessPiece {
-    constructor(color, position, board, type) {
-        super(color, position, board, 'pawn');
-        this.initializeImage();
-
-        this.calculatePossibleMoves = this.calculatePossibleMoves.bind(this);
-
-        // Event listeners
-        this.image.addEventListener("mouseover", this.showPossibleMoves.bind(this));
-        this.image.addEventListener("mouseout", this.hidePossibleMoves.bind(this));
     }
 
     showPossibleMoves() {
@@ -44,14 +32,32 @@ export class Pawn extends ChessPiece {
         this.board.unhighlightCells(possibleMoves);
     }
 
+    // ABSTRACT METHODS; should be overridden in subclasses
+    calculatePossibleMoves() {
+        throw new Error("Method 'calculatePossibleMoves' must be implemented.");
+    }
+
+    move() {
+        throw new Error("This method is abstract and should be overridden");
+    }
+}
+
+export class Pawn extends ChessPiece {
+    constructor(color, position, board, _) {
+        super(color, position, board, 'pawn');
+
+        this.calculatePossibleMoves = this.calculatePossibleMoves.bind(this);
+    }
+
     calculatePossibleMoves() {
         const posX = this.position.x;
         const posY = this.position.y;
+        const possibleMovesArray = [{ x: posX - 1, y: posY }];
 
-        const possibleMovesArray = [
-            { x: posX - 1, y: posY },
-            { x: posX - 2, y: posY },
-        ];
+        // Pawns move differently on their first move
+        if (this.isFirstMove) {
+            possibleMovesArray.push({ x: posX - 2, y: posY });
+        }
 
         return possibleMovesArray;
     }
@@ -64,7 +70,6 @@ export class Pawn extends ChessPiece {
 export class Rook extends ChessPiece {
     constructor(color, position, board, type) {
         super(color, position, board, 'rook');
-        this.initializeImage();
     }
 
     render() {
