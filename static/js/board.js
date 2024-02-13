@@ -1,8 +1,8 @@
-import { Pawn, Rook, Knight, Bishop, Queen, King } from "./chessPiece.js"
+import { Pawn, Rook, Knight, Bishop, Queen, King } from "./ChessPiece.js"
 import Cell from './Cell.js'
 
 
-class cells {
+class Cells {
     constructor() {
         this.container = document.getElementById("container");
         this.cells = [];
@@ -15,39 +15,29 @@ class cells {
 
 
     createBoard() {
-        let switchColor = false;
-
+        // Initializes the cells in a 2D array
         for (let i = 0; i < this.gridSize; i++) {
             this.cells[i] = [];
             for (let j = 0; j < this.gridSize; j++) {
+                // Choose the color of the cell based on position
+                const color = (i + j) % 2 === 0 ? "white" : "black";
 
-                console.log(switchColor);
-                if (switchColor) {
-                    this.cells[i][j] = new Cell(i, j, "black");
-                    switchColor = false;
+                // Place new cell object in the cells array
+                this.cells[i][j] = new Cell(i, j, color);
 
-                } else {
-                    this.cells[i][j] = new Cell(i, j, "white");
-                    switchColor = true;
-                }
-
-                if (i === 6) {
-                    this.cells[i][j].piece = new Pawn("white", { x: i, y: j }, this);
-                } else if (i === 7 && (j === 0 || j === 7)) {
-                    this.cells[i][j].piece = new Rook("white", { x: i, y: j }, this);
-                } else if (i === 7 && (j === 1 || j === 6)) {
-                    this.cells[i][j].piece = new Knight("white", { x: i, y: j }, this);
-                } else if (i === 7 && (j === 2 || j === 5)) {
-                    this.cells[i][j].piece = new Bishop("white", { x: i, y: j }, this);
-                } else if (i === 7 && j === 3) {
-                    this.cells[i][j].piece = new Queen("white", { x: i, y: j }, this);
-                } else if (i === 7 && j === 4) {
-                    this.cells[i][j].piece = new King("white", { x: i, y: j }, this);
-                }
-
+                // Assign a piece to each cell
+                this.assignPiece(i, j);
             }
-            switchColor = !switchColor;
+        }
+    }
 
+    assignPiece(i, j) {
+        // Depending on i, j positions, place appropriate piece
+        if (i === 6) {
+            this.cells[i][j].piece = new Pawn("white", { x: i, y: j }, this);
+        } else if (i === 7) {
+            const pieces = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook];
+            this.cells[i][j].piece = new pieces[j]("white", { x: i, y: j }, this);
         }
     }
 
@@ -82,4 +72,4 @@ class cells {
 }
 
 
-export default cells;
+export default Cells;

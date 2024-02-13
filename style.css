@@ -1,25 +1,33 @@
-* {
+*
+{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
+body
+{
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; /* Full viewport height */
+    min-height: 100vh;
+    /* Full viewport height */
+    background-color: rgb(23, 23, 23);
 }
 
-#container {
+#container
+{
     min-width: 400px;
     min-width: 400px;
     display: grid;
     grid-template-columns: repeat(8, 50px);
     cursor: grab;
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
+    -webkit-user-select: none;
+    /* Safari */
+    -ms-user-select: none;
+    /* IE 10 and IE 11 */
+    user-select: none;
+    /* Standard syntax */
     /* grid-gap: 1px; */
 
     border: 10px solid #89560d;
@@ -30,7 +38,8 @@ body {
 
 }
 
-.cell {
+.cell
+{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,20 +47,21 @@ body {
     width: 50;
     height: 50;
     /* border: 0.5px solid #000000; */
-    transition:  0.2s;  
-    opacity: 1;  
+    transition: 0.2s;
+    opacity: 1;
 }
 
-.white-cell {
+.white-cell
+{
     background-color: rgb(222, 203, 112);
 }
 
-.black-cell {
+.black-cell
+{
     background-color: rgb(49, 48, 43);
 }
 
-.highlight-cell {
-    opacity: 0.5;
-    /* filter: saturate(50%); */
-     
+.highlight-cell
+{
+    border: 5px solid #897a0d8d;
 }

@@ -1,4 +1,4 @@
-import Board from "./board.js"
+import Board from "./Board.js"
 
 export const board = new Board();
 
@@ -9,4 +9,4 @@ function run() {
 
 run();
 
-console.log(board);
+console.log(board); 

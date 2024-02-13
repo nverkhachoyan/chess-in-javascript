@@ -61,6 +61,7 @@ export class Pawn extends ChessPiece {
         return possibleMovesArray;
     }
 
+
     render() {
         return this.image;
     }

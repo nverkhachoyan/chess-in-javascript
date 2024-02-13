@@ -11,14 +11,6 @@ class Cell {
             this.element.classList.add("black-cell");
         }
 
-        // // Event listeners
-        // this.element.addEventListener("mouseover", (event) => {
-        //     this.element.style.backgroundColor = "rgb(206, 189, 105)";
-        // });
-        // this.element.addEventListener("mouseout", (event) => {
-        //     this.element.style.backgroundColor = "rgb(222, 203, 112)";
-        // });
-
         this.piece = null;
     }
 }
